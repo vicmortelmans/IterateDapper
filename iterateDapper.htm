@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <script type="text/javascript" src="date.js">
+    </script>    
+    <script type="text/javascript" src="daterange.js">
+    </script>    
+    <script type="text/javascript" src="dapper.js">
+    </script>
+    <script type="text/javascript" src="progress.js">
+    </script>    
+    <script type="text/javascript" src="retrievedata.js">
+    </script>    
+  </head>
+  <body>
+    <form name ="iterateDates" action="#">
+      <label>First day: </label><input type="text" name="firstDay" size="50" value="2010-01-01"/>
+      <label>Last day: </label><input type="text" name="lastDay" size="50" value="2010-01-30"/>
+      <label>Dappername: </label><input type="text" name="dapperName" size="50" value="aelforg"/>
+      <label>Url template: </label><input type="text" name="url" size="50" value="http://www.aelf.org/office-messe?date_my=$date"/>
+      <label>Date format: </label><input type="text" name="dateFormat" size="50" value="yyyy-MM-dd"/>
+      <input type="button" name="submit" value="Retrieve data" onclick="retrieveData(this.form);"/>
+      <textarea name="xml"></textarea>
+    </form>     
+    <script type="text/javascript">
+      var progress = new Progress("progress");
+    </script>
+  </body>
+</html>
