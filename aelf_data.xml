@@ -1,0 +1,314 @@
+<data>
+  <item>
+    <date>
+      <value>1 janvier 2010</value>
+    </date>
+    <day>
+      <value/>
+    </day>
+    <rank>
+      <value>Sainte Marie, Mère de Dieu</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>2 janvier 2010</value>
+    </date>
+    <day>
+      <value/>
+    </day>
+    <rank>
+      <value>samedi, férie de Noël</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>3 janvier 2010</value>
+    </date>
+    <day>
+      <value/>
+    </day>
+    <rank>
+      <value>L'Épiphanie du Seigneur</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>4 janvier 2010</value>
+    </date>
+    <rank>
+      <value>Lundi après l'Epiphanie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>5 janvier 2010</value>
+    </date>
+    <rank>
+      <value>Mardi après l'Epiphanie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>6 janvier 2010</value>
+    </date>
+    <rank>
+      <value>Mercredi après l'Epiphanie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>7 janvier 2010</value>
+    </date>
+    <day>
+      <value/>
+    </day>
+    <rank>
+      <value>Jeudi après l'Epiphanie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>8 janvier 2010</value>
+    </date>
+    <rank>
+      <value>Vendredi après l'Epiphanie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>9 janvier 2010</value>
+    </date>
+    <rank>
+      <value>Samedi après l'Epiphanie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>10 janvier 2010</value>
+    </date>
+    <rank>
+      <value>Le Baptême du Seigneur</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>11 janvier 2010</value>
+    </date>
+    <day>
+      <value>Lundi, 1ère Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>de la férie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>12 janvier 2010</value>
+    </date>
+    <day>
+      <value>Mardi, 1ère Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>de la férie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>13 janvier 2010</value>
+    </date>
+    <day>
+      <value>Mercredi, 1ère Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>S. Hilaire, évêque et docteur de l'Eglise</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>14 janvier 2010</value>
+    </date>
+    <day>
+      <value>Jeudi, 1ère Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>de la férie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>15 janvier 2010</value>
+    </date>
+    <day>
+      <value>Vendredi, 1ère Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>S. Rémi, évêque</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>16 janvier 2010</value>
+    </date>
+    <day>
+      <value>Samedi, 1ère Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>de la férie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>17 janvier 2010</value>
+    </date>
+    <day>
+      <value/>
+    </day>
+    <rank>
+      <value>2ème dimanche du Temps Ordinaire</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>18 janvier 2010</value>
+    </date>
+    <day>
+      <value>Lundi, 2ème Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>de la férie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>19 janvier 2010</value>
+    </date>
+    <day>
+      <value>Mardi, 2ème Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>de la férie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>20 janvier 2010</value>
+    </date>
+    <day>
+      <value>Mercredi, 2ème Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>S. Fabien, pape et martyr. Saint Sébastien, martyr</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>21 janvier 2010</value>
+    </date>
+    <day>
+      <value>Jeudi, 2ème Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>Ste Agnès, Vierge et martyr</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>22 janvier 2010</value>
+    </date>
+    <day>
+      <value>Vendredi, 2ème Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>S. Vincent, diacre et martyr</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>23 janvier 2010</value>
+    </date>
+    <day>
+      <value>Samedi, 2ème Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>de la férie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>24 janvier 2010</value>
+    </date>
+    <day>
+      <value/>
+    </day>
+    <rank>
+      <value>3ème dimanche du Temps Ordinaire</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>25 janvier 2010</value>
+    </date>
+    <day>
+      <value>Lundi, 3ème Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>Conversion de st Paul, Apôtre</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>26 janvier 2010</value>
+    </date>
+    <day>
+      <value>Mardi, 3ème Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>S. Thimothée et S. Tite, évêques</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>27 janvier 2010</value>
+    </date>
+    <day>
+      <value>Mercredi, 3ème Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>Ste Angèle Merici, vierge</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>28 janvier 2010</value>
+    </date>
+    <day>
+      <value>Jeudi, 3ème Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>S. Thomas d'Aquin, prêtre et docteur de l'Eglise</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>29 janvier 2010</value>
+    </date>
+    <day>
+      <value>Vendredi, 3ème Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>de la férie</value>
+    </rank>
+  </item>
+  <item>
+    <date>
+      <value>30 janvier 2010</value>
+    </date>
+    <day>
+      <value>Samedi, 3ème Semaine du Temps Ordinaire</value>
+    </day>
+    <rank>
+      <value>de la férie</value>
+    </rank>
+  </item>
+</data>
