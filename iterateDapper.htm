@@ -1,25 +1,37 @@
 <html>
   <head>
+    <script type="text/javascript;e4x=1" src="iterateDapper.js">
+    </script>    
     <script type="text/javascript" src="date.js">
     </script>    
-    <script type="text/javascript" src="daterange.js">
+    <script type="text/javascript;e4x=1" src="daterange.js">
     </script>    
-    <script type="text/javascript" src="dapper.js">
+    <script type="text/javascript;e4x=1" src="dapper.js">
     </script>
-    <script type="text/javascript" src="progress.js">
+    <script type="text/javascript;e4x=1" src="progress.js">
     </script>    
-    <script type="text/javascript" src="retrievedata.js">
+    <script type="text/javascript;e4x=1" src="forms.js">
+    </script>    
+    <script type="text/javascript" src="jsonloader.js">
+    </script>    
+    <script type="text/javascript;e4x=1" src="structureddata.js">
     </script>    
   </head>
   <body>
     <form name ="iterateDates" action="#">
-      <label>First day: </label><input type="text" name="firstDay" size="50" value="2010-01-01"/>
-      <label>Last day: </label><input type="text" name="lastDay" size="50" value="2010-01-30"/>
+      <label>First day: </label><input type="text" name="firstDay" size="15" value="2010-01-01"/>
+      <label>Last day: </label><input type="text" name="lastDay" size="15" value="2010-01-02"/>
       <label>Dappername: </label><input type="text" name="dapperName" size="50" value="aelforg"/>
       <label>Url template: </label><input type="text" name="url" size="50" value="http://www.aelf.org/office-messe?date_my=$date"/>
+      <label>Date format: </label><input type="text" name="dateFormat" size="15" value="yyyy-MM-dd"/>
+      <input type="button" name="submit" value="Retrieve data"/>
+      <textarea rows="15" cols="60" name="xml"></textarea>
+    </form>     
+    <form name ="testDates" action="#">
+      <label>Date: </label><input type="text" name="date" size="50" value="2010-01-01"/>
       <label>Date format: </label><input type="text" name="dateFormat" size="50" value="yyyy-MM-dd"/>
-      <input type="button" name="submit" value="Retrieve data" onclick="retrieveData(this.form);"/>
-      <textarea name="xml"></textarea>
+      <input type="button" name="submit" value="Transform date" onclick="this.form.result.value = parseDate(this.form.date.value).toString()"/>
+      <textarea name="result"></textarea>
     </form>     
     <script type="text/javascript">
       var progress = new Progress("progress");
