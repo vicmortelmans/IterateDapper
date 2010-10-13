@@ -470,7 +470,45 @@
       </readingreference>
     </item>
   </item>
-  <item>Due to server load we cannot process your request at this time. Please try again a few minutes.</item>
+  <item>
+    <item>
+      <yearcycle>
+        <value>Year C</value>
+        <href>http://www.cathcal.org/rules.html#years</href>
+      </yearcycle>
+      <cycle>
+        <value>Cycle II</value>
+        <href>http://www.cathcal.org/rules.html#cycles</href>
+      </cycle>
+      <day>
+        <value>Tuesday of the First week in Ordinary Time</value>
+      </day>
+      <mass>
+        <value>Readings for Mass</value>
+      </mass>
+      <readingtype>
+        <value>First Reading:</value>
+      </readingtype>
+      <readingtype>
+        <value>Responsorial Psalm:</value>
+      </readingtype>
+      <readingtype>
+        <value>Gospel:</value>
+      </readingtype>
+      <readingreference>
+        <value>First Samuel 1:9-20</value>
+        <href>http://www.easterbrooks.com/cgi-bin/Bible.cgi?reading=1Samuel+1:9-20&amp;mode=paragraph</href>
+      </readingreference>
+      <readingreference>
+        <value>First Samuel 2:1, 4-5, 6-7, 8</value>
+        <href>http://www.easterbrooks.com/cgi-bin/Bible.cgi?reading=1Samuel+2:1%2C4-8&amp;mode=paragraph</href>
+      </readingreference>
+      <readingreference>
+        <value>Mark 1:21-28</value>
+        <href>http://www.easterbrooks.com/cgi-bin/Bible.cgi?reading=Mark+1:21-28&amp;mode=paragraph</href>
+      </readingreference>
+    </item>
+  </item>
   <item>
     <item>
       <yearcycle>
@@ -725,7 +763,45 @@
       </readingreference>
     </item>
   </item>
-  <item>Due to server load we cannot process your request at this time. Please try again a few minutes.</item>
+  <item>
+    <item>
+      <yearcycle>
+        <value>Year C</value>
+        <href>http://www.cathcal.org/rules.html#years</href>
+      </yearcycle>
+      <cycle>
+        <value>Cycle II</value>
+        <href>http://www.cathcal.org/rules.html#cycles</href>
+      </cycle>
+      <day>
+        <value>Tuesday of the Second week in Ordinary Time</value>
+      </day>
+      <mass>
+        <value>Readings for Mass</value>
+      </mass>
+      <readingtype>
+        <value>First Reading:</value>
+      </readingtype>
+      <readingtype>
+        <value>Responsorial Psalm:</value>
+      </readingtype>
+      <readingtype>
+        <value>Gospel:</value>
+      </readingtype>
+      <readingreference>
+        <value>First Samuel 16:1-13</value>
+        <href>http://www.easterbrooks.com/cgi-bin/Bible.cgi?reading=1Samuel+16:1-13&amp;mode=paragraph</href>
+      </readingreference>
+      <readingreference>
+        <value>Psalms 89:20, 21-22, 27-28</value>
+        <href>http://www.easterbrooks.com/cgi-bin/Bible.cgi?reading=Psalms+89:19-21%2C26-27</href>
+      </readingreference>
+      <readingreference>
+        <value>Mark 2:23-28</value>
+        <href>http://www.easterbrooks.com/cgi-bin/Bible.cgi?reading=Mark+2:23-28&amp;mode=paragraph</href>
+      </readingreference>
+    </item>
+  </item>
   <item>
     <item>
       <yearcycle>
@@ -856,7 +932,48 @@
       </readingreference>
     </item>
   </item>
-  <item>Due to server load we cannot process your request at this time. Please try again a few minutes.</item>
+  <item>
+    <item>
+      <yearcycle>
+        <value>Year C</value>
+        <href>http://www.cathcal.org/rules.html#years</href>
+      </yearcycle>
+      <cycle>
+        <value>Cycle II</value>
+        <href>http://www.cathcal.org/rules.html#cycles</href>
+      </cycle>
+      <day>
+        <value>Saturday of the Second week in Ordinary Time</value>
+      </day>
+      <mass>
+        <value>Readings for Mass</value>
+      </mass>
+      <mass>
+        <value>Readings for Mass</value>
+      </mass>
+      <readingtype>
+        <value>First Reading:</value>
+      </readingtype>
+      <readingtype>
+        <value>Responsorial Psalm:</value>
+      </readingtype>
+      <readingtype>
+        <value>Gospel:</value>
+      </readingtype>
+      <readingreference>
+        <value>Second Samuel 1:1-4, 11-12, 19, 23-27</value>
+        <href>http://www.easterbrooks.com/cgi-bin/Bible.cgi?reading=2Samuel+1:1-4%2C11-12%2C19%2C23-27&amp;mode=paragraph</href>
+      </readingreference>
+      <readingreference>
+        <value>Psalms 80:2-3, 5-7</value>
+        <href>http://www.easterbrooks.com/cgi-bin/Bible.cgi?reading=Psalms+80:1-2%2C4-6</href>
+      </readingreference>
+      <readingreference>
+        <value>Mark 3:20-21</value>
+        <href>http://www.easterbrooks.com/cgi-bin/Bible.cgi?reading=Mark+3:20-21&amp;mode=paragraph</href>
+      </readingreference>
+    </item>
+  </item>
   <item>
     <item>
       <yearcycle>

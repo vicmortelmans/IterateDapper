@@ -6,10 +6,13 @@ function Progress(id)
  {
    this.progress = progress;
    var div = document.getElementById(this.id);
-   var html = <p>{progress} %</p>;
-   div.innerHTML = html.toXMLString();
+   if (div)
+   {
+     var html = <p>{progress*100} %</p>;
+     div.innerHTML = html.toXMLString();
+  }
  }
  // render a placeholder empty <div/> with id-tag
- var html = <div id="{this.id}"></div>;
+ var html = <div id={this.id}></div>;
  document.write(html.toXMLString());
 }

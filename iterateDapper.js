@@ -8,7 +8,7 @@ window.onload = function()
   
   window.daterangeformMgr = new FormMgr(document.iterateDates);
   
-  window.daterangeformMgr.submit = function ()
+  window.daterangeformMgr.submit = function()
   {
     // disable the button
     // fetch the progress object
@@ -33,5 +33,35 @@ window.onload = function()
       this.dapper.queryParametrized(<params><date>{dateString}</date></params>);
     }
   }
+
+  window.daterangeform2Mgr = new FormMgr(document.iterateDates2);
   
+  window.daterangeform2Mgr.submit = function()
+  {
+    // disable the button
+    // fetch the progress object
+    this.progress = window.iterateDates2Progress;
+    this.progress.update(0);
+    // create the dapper object
+    this.xml = <data></data>;
+    this.displayData();
+    this.dapper = new DapperDateParametrized(this.form.dapperName.value,
+                                         this.form.url.value);
+    var that = this;
+    this.dapper.callback = function(xml){that.addSomeData(xml)};
+    // create a series object
+    this.dates = new Daterange(this.form.firstDay.value, this.form.lastDay.value);
+    this.query();
+  }
+  
+  window.daterangeform2Mgr.query = function()
+  {
+    var date = new Date();
+    if (date = this.dates.next())
+    {
+      this.dapper.queryDateParametrized(date);
+      this.progress.update(this.dates.progress);
+    }
+  }
+    
 }

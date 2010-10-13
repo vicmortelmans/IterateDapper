@@ -18,6 +18,17 @@
     </script>    
   </head>
   <body>
+    <form name ="iterateDates2" action="#">
+      <label>First day: </label><input type="text" name="firstDay" size="15" value="2010-01-01"/>
+      <label>Last day: </label><input type="text" name="lastDay" size="15" value="2010-01-02"/>
+      <label>Dappername: </label><input type="text" name="dapperName" size="50" value="easterbrooks_comlectionary"/>
+      <label>Url template: </label><input type="text" name="url" size="50" value="http://www.easterbrooks.com/cgi-bin/Cathcal.cgi?Year=${yyyy}&Month=${MM}&Day=${dd}&Style=4&Region=1&Select=Select"/>
+      <input type="button" name="submit" value="Retrieve data"/>
+      <textarea rows="15" cols="60" name="xml"></textarea>
+    </form>     
+    <script type="text/javascript">
+      window.iterateDates2Progress = new Progress("iterateDates2Progress");
+    </script>
     <form name ="iterateDates" action="#">
       <label>First day: </label><input type="text" name="firstDay" size="15" value="2010-01-01"/>
       <label>Last day: </label><input type="text" name="lastDay" size="15" value="2010-01-02"/>
@@ -33,8 +44,5 @@
       <input type="button" name="submit" value="Transform date" onclick="this.form.result.value = parseDate(this.form.date.value).toString()"/>
       <textarea name="result"></textarea>
     </form>     
-    <script type="text/javascript">
-      var progress = new Progress("progress");
-    </script>
   </body>
 </html>
