@@ -8,7 +8,7 @@ function Progress(id)
    var div = document.getElementById(this.id);
    if (div)
    {
-     var html = <p>{progress*100} %</p>;
+     var html = <p>{Math.ceil(progress*100)} %</p>;
      div.innerHTML = html.toXMLString();
   }
  }

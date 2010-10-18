@@ -16,7 +16,7 @@ function FormMgr(form)
   this.addSomeData = function(xml)
   { 
     this.xml.appendChild(xml);
-    this.displayData();
+    //this.displayData();
     this.query();
   }
   this.displayData = function()

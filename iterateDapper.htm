@@ -16,6 +16,8 @@
     </script>    
     <script type="text/javascript;e4x=1" src="structureddata.js">
     </script>    
+    <script type="text/javascript" src="copyClipboard.js">
+    </script>    
   </head>
   <body>
     <form name ="iterateDates2" action="#">
@@ -24,6 +26,7 @@
       <label>Dappername: </label><input type="text" name="dapperName" size="50" value="easterbrooks_comlectionary"/>
       <label>Url template: </label><input type="text" name="url" size="50" value="http://www.easterbrooks.com/cgi-bin/Cathcal.cgi?Year=${yyyy}&Month=${MM}&Day=${dd}&Style=4&Region=1&Select=Select"/>
       <input type="button" name="submit" value="Retrieve data"/>
+      <span id="iterateDates2.clipboard"><a>Op klembord zetten</a></span>
       <textarea rows="15" cols="60" name="xml"></textarea>
     </form>     
     <script type="text/javascript">

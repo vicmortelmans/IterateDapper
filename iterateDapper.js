@@ -14,7 +14,7 @@ window.onload = function()
     // fetch the progress object
     // create the dapper object
     this.xml = <data></data>;
-    this.displayData();
+    //this.displayData();
     this.dapper = new DapperParametrized(this.form.dapperName.value,
                                          this.form.url.value);
     var that = this;
@@ -62,6 +62,14 @@ window.onload = function()
       this.dapper.queryDateParametrized(date);
       this.progress.update(this.dates.progress);
     }
+    else
+    {
+      this.displayData();
+    }
   }
-    
+  
+  document.getElementById('iterateDates2.clipboard').onclick = function()
+  {
+    copy_clip(window.daterangeform2Mgr.form.xml.value);
+  }
 }
