@@ -5,14 +5,12 @@ function Progress(id)
  this.update = function(progress)
  {
    this.progress = progress;
-   var div = document.getElementById(this.id);
+   var div = $("#" + this.id);
    if (div)
    {
-     var html = <p>{Math.ceil(progress*100)} %</p>;
-     div.innerHTML = html.toXMLString();
+     div.innerHTML("<p>" + Math.ceil(progress*100) + " %</p>");
   }
  }
  // render a placeholder empty <div/> with id-tag
- var html = <div id={this.id}></div>;
- document.write(html.toXMLString());
+ $(document.body).append("<div id='" + this.id + "'></div>");
 }

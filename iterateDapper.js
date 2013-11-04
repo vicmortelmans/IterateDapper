@@ -6,70 +6,53 @@ window.onload = function()
   // 2. create specific implementations for the FormMgr methods 'submit' and 'query'
   // 3. if needed, provide special range-objects (similar to daterange)
   
-  window.daterangeformMgr = new FormMgr(document.iterateDates);
+  parochiesMgr = new FormMgr(document.parochies);
   
-  window.daterangeformMgr.submit = function()
+  
+  
+  parochiesMgr.submit = function()
   {
     // disable the button
     // fetch the progress object
     // create the dapper object
-    this.xml = <data></data>;
     //this.displayData();
-    this.dapper = new DapperParametrized(this.form.dapperName.value,
-                                         this.form.url.value);
+    this.dapper = new Dapper("KerknetParochiesdata");
     var that = this;
-    this.dapper.callback = function(xml){that.addSomeData(xml)};
+    this.dapper.callback = function(json){
+      var row = [];
+      var items = Utilities.jsonParse(json).groups.item;
+      if (items.length) {
+        var item = items[0];
+        var columns = ["parochie", "heiligemis", "adres1", "adres2", "telefoon"];
+        for (var c = 0; c < columns.length; c++) {
+          var label = columns[c];
+          if (item.hasOwnProperty(label)) {
+            var itemValues = item[label];
+            var values = [];
+            for (i = 0; i < itemValues.length; i++) {
+              values.push(itemValues[i].value);
+            }
+            row.push(values.join(";"));
+          } else {
+            row.push("");
+          }
+        }
+      }
+      that.addSomeData(row)
+    };
     // create a series object
-    this.dates = new Daterange(this.form.firstDay.value, this.form.lastDay.value);
+    this.urls = new Arrayrange([
+        "http://kerknet.be/parochie/parochie_fiche.php?parochieID=24",
+        "http://kerknet.be/parochie/parochie_fiche.php?parochieID=21"
+    ]);
     this.query();
   }
   
-  window.daterangeformMgr.query = function()
+  parochiesMgr.query = function()
   {
-    var date = new Date();
-    if (date = this.dates.next())
+    if (url = this.urls.next())
     {
-      var dateString = formatDate(date,this.form.dateFormat.value);
-      this.dapper.queryParametrized(<params><date>{dateString}</date></params>);
+      this.dapper.query(url);
     }
-  }
-
-  window.daterangeform2Mgr = new FormMgr(document.iterateDates2);
-  
-  window.daterangeform2Mgr.submit = function()
-  {
-    // disable the button
-    // fetch the progress object
-    this.progress = window.iterateDates2Progress;
-    this.progress.update(0);
-    // create the dapper object
-    this.xml = <data></data>;
-    this.displayData();
-    this.dapper = new DapperDateParametrized(this.form.dapperName.value,
-                                         this.form.url.value);
-    var that = this;
-    this.dapper.callback = function(xml){that.addSomeData(xml)};
-    // create a series object
-    this.dates = new Daterange(this.form.firstDay.value, this.form.lastDay.value);
-    this.query();
-  }
-  
-  window.daterangeform2Mgr.query = function()
-  {
-    var date = new Date();
-    if (date = this.dates.next())
-    {
-      this.dapper.queryDateParametrized(date);
-      this.progress.update(this.dates.progress);
-    }
-    else
-    {
-      this.displayData();
-    }
-  }
-  
-  document.getElementById('iterateDates2.clipboard').onclick = function()
-  {
-    copy_clip(window.daterangeform2Mgr.form.xml.value);
   }
 }

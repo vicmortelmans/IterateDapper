@@ -1,51 +1,21 @@
 <html>
   <head>
-    <script type="text/javascript;e4x=1" src="iterateDapper.js">
-    </script>    
-    <script type="text/javascript" src="date.js">
-    </script>    
-    <script type="text/javascript;e4x=1" src="daterange.js">
-    </script>    
-    <script type="text/javascript;e4x=1" src="dapper.js">
-    </script>
-    <script type="text/javascript;e4x=1" src="progress.js">
-    </script>    
-    <script type="text/javascript;e4x=1" src="forms.js">
-    </script>    
-    <script type="text/javascript" src="jsonloader.js">
-    </script>    
-    <script type="text/javascript;e4x=1" src="structureddata.js">
-    </script>    
-    <script type="text/javascript" src="copyClipboard.js">
-    </script>    
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="iterateDapper.js"></script>    
+    <script type="text/javascript" src="arrayrange.js"></script>    
+    <script type="text/javascript" src="date.js"></script>    
+    <script type="text/javascript" src="dapper.js"></script>
+    <script type="text/javascript" src="progress.js"></script>    
+    <script type="text/javascript" src="forms.js"></script>    
+    <script type="text/javascript" src="jsonloader.js"></script>    
   </head>
   <body>
-    <form name ="iterateDates2" action="#">
-      <label>First day: </label><input type="text" name="firstDay" size="15" value="2010-01-01"/>
-      <label>Last day: </label><input type="text" name="lastDay" size="15" value="2010-01-02"/>
-      <label>Dappername: </label><input type="text" name="dapperName" size="50" value="easterbrooks_comlectionary"/>
-      <label>Url template: </label><input type="text" name="url" size="50" value="http://www.easterbrooks.com/cgi-bin/Cathcal.cgi?Year=${yyyy}&Month=${MM}&Day=${dd}&Style=4&Region=1&Select=Select"/>
+    <form name ="parochies" action="#">
+      <input type="button" name="prepare" value="Prepare list"/>
       <input type="button" name="submit" value="Retrieve data"/>
-      <span id="iterateDates2.clipboard"><a>Op klembord zetten</a></span>
-      <textarea rows="15" cols="60" name="xml"></textarea>
     </form>     
     <script type="text/javascript">
-      window.iterateDates2Progress = new Progress("iterateDates2Progress");
+      window.parochiesProgress = new Progress("parochiesProgress");
     </script>
-    <form name ="iterateDates" action="#">
-      <label>First day: </label><input type="text" name="firstDay" size="15" value="2010-01-01"/>
-      <label>Last day: </label><input type="text" name="lastDay" size="15" value="2010-01-02"/>
-      <label>Dappername: </label><input type="text" name="dapperName" size="50" value="aelforg"/>
-      <label>Url template: </label><input type="text" name="url" size="50" value="http://www.aelf.org/office-messe?date_my=$date"/>
-      <label>Date format: </label><input type="text" name="dateFormat" size="15" value="yyyy-MM-dd"/>
-      <input type="button" name="submit" value="Retrieve data"/>
-      <textarea rows="15" cols="60" name="xml"></textarea>
-    </form>     
-    <form name ="testDates" action="#">
-      <label>Date: </label><input type="text" name="date" size="50" value="2010-01-01"/>
-      <label>Date format: </label><input type="text" name="dateFormat" size="50" value="yyyy-MM-dd"/>
-      <input type="button" name="submit" value="Transform date" onclick="this.form.result.value = parseDate(this.form.date.value).toString()"/>
-      <textarea name="result"></textarea>
-    </form>     
   </body>
 </html>

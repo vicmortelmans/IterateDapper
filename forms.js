@@ -12,10 +12,10 @@ function FormMgr(form)
     this.form.formMgr.submit();
   } 
   this.query = function(){};
-  this.xml = new XML();
-  this.addSomeData = function(xml)
+  this.data = [];
+  this.addSomeData = function(data)
   { 
-    this.xml.appendChild(xml);
+    this.data.append(data);
     //this.displayData();
     this.query();
   }

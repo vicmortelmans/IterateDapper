@@ -40,47 +40,9 @@ function Dapper(dappername)
     }
     else
     {
-      var data = new StructuredData(json);
-      delete data.xml.dapper;
-      var xml = <item>{data.xml.*.*}</item>;
-      delete xml..originalElement;
-      delete xml..fieldName;
-      this.callback(xml);
+      this.callback(json);
     }
   }
-}
-
-function DapperParametrized(dappername,urlTemplate)
-{
- var that = new Dapper(dappername);
- that.urlTemplate = urlTemplate;
- that.queryParametrized = function(params)
- {
-   var url = that.urlTemplate;
-   for each (var p in params.*)
-   {
-     url = url.replace('$' + p.name().toString(),p.toString());
-   }
-   that.query(url);
- }
- return that;
-}
-
-function DapperDateParametrized(dappername,urlTemplate)
-{
-  var that = new Dapper(dappername);
-  that.urlTemplate = urlTemplate;
-  that.queryDateParametrized = function(date)
-  {
-    var url = that.urlTemplate;
-    var params = url.match(/\${.+?}/g);
-    for each (var param in params)
-    {
-      url = url.replace(param,formatDate(date,param.match(/\${(.+)}/)[1]));
-    }
-    that.query(url);
-  }
-  return that;
 }
 
 // Utility functions
