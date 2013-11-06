@@ -8,8 +8,11 @@
     <script type="text/javascript" src="progress.js"></script>    
     <script type="text/javascript" src="forms.js"></script>    
     <script type="text/javascript" src="jsonloader.js"></script>    
+    <script type="text/javascript" src="fusion.js"></script>    
+    <script src="//apis.google.com/js/client.js?onload=handleClientLoad"></script>
   </head>
   <body>
+    <button onclick="auth();">Authorize</button>
     <form name ="parochies" action="#">
       <input type="button" name="prepare" value="Prepare list"/>
       <input type="button" name="submit" value="Retrieve data"/>

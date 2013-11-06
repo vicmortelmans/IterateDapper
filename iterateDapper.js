@@ -62,7 +62,9 @@ window.onload = function() {
                     }
                 }
             });
-            request.execute(function(resp) { console.log(resp); });
+            request.execute(function(resp) { 
+                console.log(resp); 
+            });
         }
     }
 }
