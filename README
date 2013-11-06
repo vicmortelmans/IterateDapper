@@ -2,6 +2,8 @@ IterateDapper Readme
 
 Retrieve data from the web by iterating a dapper on a series of webpages.
 
-Implemented in javaScript and running in a browser (Firefox only, as it uses E4X).
+Implemented in javaScript and running in a browser.
 
 Ad-hoc implementation, so little modularity to be expected!
+
+Check iterateDapper.js for basic info on customization.

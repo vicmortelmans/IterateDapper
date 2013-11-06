@@ -15,7 +15,7 @@ function FormMgr(form)
   this.data = [];
   this.addSomeData = function(data)
   { 
-    this.data.append(data);
+    this.data.push(data);
     //this.displayData();
     this.query();
   }
