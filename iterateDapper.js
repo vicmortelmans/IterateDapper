@@ -15,7 +15,8 @@ $(document).ready(function() {
 
     $('#parochielijstButton').on('click', function() {
         var bisdom = [
-            "http://kerknet.be/zoek_parochie.php?allbisdom=1"
+            "http://kerknet.be/zoek_parochie.php?allbisdom=1",
+            "http://kerknet.be/zoek_parochie.php?allbisdom=2"
         ];
         
         // verzamel voor elk bisdom alle opeenvolgende pagina's met lijsten van parochies
@@ -49,7 +50,7 @@ $(document).ready(function() {
             );
         };
         
-        parochielijstBidsomCount.set(bidsom.length);
+        parochielijstBisdomCount.set(bisdom.length);
         $.each(bisdom, function(index,url) {
             volgendeParochielijst(url);
         });
@@ -59,12 +60,17 @@ $(document).ready(function() {
         // verzamel de pagina's van de parochies
         
         parochie = [];
+        var parochielijstCount2 = new guiNumber('parochielijstCount2');
+        var parochielijstOngoing = new guiNumber('parochielijstOngoing');
         var parochieCount = new guiNumber('parochieCount');
+        var parochieError = new guiString('parochieError');
         
+        parochielijstCount2.set(parochielijstCount.value);
         $.each(parochielijst, function(index, url) {
             dapper('kerknetparochieslist', url, 
                 function(json) {
                     if (json.hasOwnProperty('fields')) {
+                        parochielijstOngoing.increment();
                         var items = json.fields.item;
                         $.each(items, function(index, item) {
                             var url = item.href;
@@ -74,7 +80,7 @@ $(document).ready(function() {
                     }
                 },
                 function(url) {
-                    $('#parochieError').append('<p>' + url + '</p>');
+                    parochieError.append(url);
                 }
             );
         });
