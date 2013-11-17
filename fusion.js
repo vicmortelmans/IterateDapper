@@ -1,15 +1,22 @@
-function handleClientLoad() {
-    gapi.client.setApiKey('AIzaSyDN-6t7i93pOzKrcL56jsEi4kCsNezipq0');
-    gapi.client.load('fusiontables', 'v1');
+function import2(array) {
+    for (var i = 0; i < array.length; i++) {
+        array[i] = array[i].join(';')
+    }
+    var csv = array.join('\r\n');
+    var tableId = '1ahxaJ35-UlI37Ye-haLFLolAhKeeI-Gs4PkpmfY';
+    var request = gapi.client.request({
+       'path': '/upload/fusiontables/v1/tables/' + tableId + '/import',
+       'method': 'POST',
+       'headers': {
+           'Content-Type': 'application/octet-stream'
+       },
+       'params': {
+           'delimiter': ';'
+       },
+       'body': csv
+   });            
+    request.execute(function(resp) { 
+        console.log(resp); 
+        });
 }
 
-function auth() {
-    var config = {
-        'client_id': '115096030889.apps.googleusercontent.com',
-        'scope': 'https://www.googleapis.com/auth/fusiontables'
-    };
-    gapi.auth.authorize(config, function() {
-        console.log('login complete');
-        console.log(gapi.auth.getToken());
-    });
-}

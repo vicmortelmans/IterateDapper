@@ -1,24 +1,40 @@
 <html>
   <head>
     <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script type="text/javascript" src="iterateDapper.js"></script>    
+    <script src="//apis.google.com/js/client.js"></script>
     <script type="text/javascript" src="arrayrange.js"></script>    
     <script type="text/javascript" src="date.js"></script>    
     <script type="text/javascript" src="dapper.js"></script>
-    <script type="text/javascript" src="progress.js"></script>    
-    <script type="text/javascript" src="forms.js"></script>    
-    <script type="text/javascript" src="jsonloader.js"></script>    
     <script type="text/javascript" src="fusion.js"></script>    
-    <script src="//apis.google.com/js/client.js?onload=handleClientLoad"></script>
+    <script type="text/javascript" src="gui.js"></script>    
+    <script type="text/javascript" src="iterateDapper.js"></script>    
   </head>
   <body>
-    <button onclick="auth();">Authorize</button>
-    <form name ="parochies" action="#">
-      <input type="button" name="prepare" value="Prepare list"/>
-      <input type="button" name="submit" value="Retrieve data"/>
-    </form>     
-    <script type="text/javascript">
-      window.parochiesProgress = new Progress("parochiesProgress");
-    </script>
+    <ol>
+        <li>
+            <button id="authorizeButton">Authorize</button>
+            <div id="authorizeConsole"></div>
+        </li>
+        <li>
+            <button id="parochielijstButton">Verzamel voor elk bisdom alle opeenvoor elk bisdom alle opeenvolgende pagina's met lijsten van lijsten van parochies</button>        
+            <div>Bisdommen: <span id="parochielijstBisdomOngoing"/> van <span id="parochielijstBisdomCount"/></div>
+            <div>Pagina's met parochielijsten: <span id="parochielijstCount"/></div>
+            <div>Gefaalde pagina's: <span id="parochielijstError"/></div>
+        </li>
+        <li>
+            <button id="parochieparochieButton">Verzamel de pagina's vanpagina's van de parochies</button>        
+            <div id="parochieCount"></div>
+            <div id="parochieErrorparochieCount"></div>
+            <div id="parochieError"></divdiv>
+        </li>
+        <li>
+            <button id="dataButton">Verzamel de parochiegegevens</button>        
+            <p id="autorizeConsole"></p>
+        </li>
+        <li>
+            <button id="importButton">Upload to Fusion table</button>
+            <p id="autorizeConsole"></p>
+        </li>
+    </ol>
   </body>
 </html>
