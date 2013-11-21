@@ -29,7 +29,7 @@ function guiString(id) {
         return;
     };
     this.append = function(string) {
-        this.dom.append('<div>' + string + '</div');
+        this.dom.append('<div>' + string + '</div>');
         return;
     };
 }

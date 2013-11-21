@@ -1,4 +1,4 @@
-function dapper(dappername, url, callback, failure, failure, retry) {
+function dapper(dappername, url, callback, failure, retry) {
     retry = (typeof retry === "undefined") ? 0 : retry;
     var dapperurl = "http://open.dapper.net/transform.php?dappName=$dappername&applyToUrl=$url&transformer=JSON";
     dapperurl = dapperurl.replace(/\$dappername/, encodeURIComponent(dappername));

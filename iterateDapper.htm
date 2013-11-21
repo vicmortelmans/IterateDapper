@@ -16,20 +16,23 @@
             <div id="authorizeConsole"></div>
         </li>
         <li>
-            <button id="parochielijstButton">Verzamel voor elk bisdom alle opeenvoor elk bisdom alle opeenvolgende pagina's met lijsten van lijsten van parochies</button>        
-            <div>Bisdommen: <span id="parochielijstBisdomOngoing"/> van <span id="parochielijstBisdomCount"/></div>
-            <div>Pagina's met parochielijsten: <span id="parochielijstCount"/></div>
-            <div>Gefaalde pagina's: <span id="parochielijstError"/></div>
+            <button id="parochielijstButton">Verzamel voor elk bisdom alle opeenvolgende pagina's met lijsten van parochies</button>        
+            <div>Bisdommen: <span id="parochielijstBisdomOngoing"></span> van <span id="parochielijstBisdomCount"></span></div>
+            <div>Pagina's met parochielijsten: <span id="parochielijstCount"></span></div>
+            <div>Gefaalde pagina's: <div id="parochielijstError"></div></div>
         </li>
         <li>
             <button id="parochieButton">Verzamel de pagina's van de parochies</button>        
-            <div>Parochielijsten: <span id="parochielijstOngoing"/> van <span id="parochielijstCount2"/></div>
-            <div>Pagina's van parochies: <span id="parochieCount"/></div>
-            <div>Gefaalde pagina's: <span id="parochieError"/></div>
+            <div>Parochielijsten: <span id="parochielijstOngoing"></span> van <span id="parochielijstCount2"></span></div>
+            <div>Pagina's van parochies: <span id="parochieCount"></span></div>
+            <div>Gefaalde pagina's: <div id="parochieError"></div></div>
         </li>
         <li>
             <button id="dataButton">Verzamel de parochiegegevens</button>        
-            <p id="autorizeConsole"></p>
+            <div>Parochies: <span id="parochieOngoing"> van <span id="parochieCount2"></span></div>
+            <div>Opgehaalde parochiedata: <span id="dataCount"></span></div>
+            <div>Opgehaalde misuren: <span id="misCount"></span></div>
+            <div>Gefaalde pagina's: <div id="dataError"></div></div>
         </li>
         <li>
             <button id="importButton">Upload to Fusion table</button>

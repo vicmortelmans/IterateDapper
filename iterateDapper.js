@@ -1,5 +1,7 @@
 var parochielijst;
 var parochie;
+var parochieData;
+var misData;
 
 $(document).ready(function() {
 
@@ -60,12 +62,12 @@ $(document).ready(function() {
         // verzamel de pagina's van de parochies
         
         parochie = [];
-        var parochielijstCount2 = new guiNumber('parochielijstCount2');
+        var parochielijstCount = new guiNumber('parochielijstCount2');
         var parochielijstOngoing = new guiNumber('parochielijstOngoing');
         var parochieCount = new guiNumber('parochieCount');
         var parochieError = new guiString('parochieError');
         
-        parochielijstCount2.set(parochielijstCount.value);
+        parochielijstCount.set(parochielijst.length);
         $.each(parochielijst, function(index, url) {
             dapper('kerknetparochieslist', url, 
                 function(json) {
@@ -75,7 +77,7 @@ $(document).ready(function() {
                         $.each(items, function(index, item) {
                             var url = item.href;
                             parochie.push(url);
-                            parochieCount.increment();
+                            parochieCount2.increment();
                         });
                     }
                 },
@@ -84,53 +86,70 @@ $(document).ready(function() {
                 }
             );
         });
-    })
+    });
     
-    // verzamel de data van elke parochie
     
-    /*
-    
-    window.parochiesMgr.submit = function() {
-        // disable the button
-        // fetch the progress object
-        // create the dapper object
-        //this.displayData();
-        this.dapper = new Dapper("KerknetParochiesdata");
-        var that = this;
-        this.dapper.callback = function(json) {
-            var row = [];
-            var items = json.groups.item;
-            if (items.length) {
-                var item = items[0];
-                var columns = ["parochie", "heiligemis", "adres1", "adres2", "telefoon"];
-                for (var c = 0; c < columns.length; c++) {
-                    var label = columns[c];
-                    if (item.hasOwnProperty(label)) {
-                        var itemValues = item[label];
-                        var values = [];
-                        for (var i = 0; i < itemValues.length; i++) {
-                            values.push(itemValues[i].value);
+    $('#dataButton').on('click', function() {
+        // verzamel de data van elke parochie
+        
+        parochieData = [];
+        misData = [];
+        var parochieCount2 = new guiNumber('parochieCount2');
+        var parochieOngoing = new guiNumber('parochieOngoing');
+        var dataCount = new guiNumber('dataCount');
+        var misCount = new guiNumber('misCount');
+        var dataError = new guiString('dataError');
+        
+        parochieCount2.set(parochie.length);
+        $.each(parochie, function(index, url) {
+            dapper('KerknetParochiesdata', url,
+                function(json) {
+                    var data = [];
+                    var items = json.groups.item;
+                    if (items.length) {
+                        data.push(url);  // used as record ID
+                        var item = items[0];
+                        var columns = ["parochie", "adres1", "adres2", "telefoon"];
+                        for (var c = 0; c < columns.length; c++) {
+                            var label = columns[c];
+                            if (item.hasOwnProperty(label)) {
+                                var itemValues = item[label];
+                                var values = [];
+                                for (var i = 0; i < itemValues.length; i++) {
+                                    values.push(itemValues[i].value);
+                                }
+                                data.push(values.join(", "));
+                            }
+                            else {
+                                data.push("");
+                            }
                         }
-                        row.push(values.join(";"));
+                        if (item.hasOwnProperty("heiligemis")) {
+                            var itemValues = item["heiligemis"];
+                            for (var i = 0; i < itemValues.length; i++) {
+                                var day = itemValues[i];
+                                var agenda = itemValues[++i];
+                                var time = agenda.match(/[0-9]{2}\.[0-9]{2}u/g);
+                                var activity = agenda.split(/\s?[0-9]{2}\.[0-9]{2}u\s?/g);
+                                activity.shift();
+                                for (var m = 0; m < time.length; m++) {
+                                    var mass = [];
+                                    mass.push(url);  // used as record ID
+                                    mass.push(day);
+                                    mass.push(time);
+                                    mass.push(activity);
+                                    misData.push(mass);
+                                }
+                            }
+                        }
                     }
-                    else {
-                        row.push("");
-                    }
+                    parochieData.push(data);
+                },
+                function(url) {
+                    dataError.append(url);
                 }
-            }
-            that.addSomeData(row)
-        };
-        // create a series object
-        this.urls = new Arrayrange(["http://kerknet.be/parochie/parochie_fiche.php?parochieID=24", "http://kerknet.be/parochie/parochie_fiche.php?parochieID=21"]);
-        this.query();
-    }
-
-    window.parochiesMgr.query = function() {
-        var url = this.urls.next();
-        if (url) {
-            this.dapper.query(url);
-        }
-    }
-    
-    */
+            );
+        });
+    });
 });
+
