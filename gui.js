@@ -20,6 +20,11 @@ function guiNumber(id) {
         this.display();
         return;
     };
+    this.decrement = function(value) {
+        this.value--;
+        this.display();
+        return;
+    };
 }
 
 function guiString(id) {

@@ -1,4 +1,9 @@
 function dapper(dappername, url, callback, failure, retry) {
+    window.openCalls.increment();
+    setTimeout(function() {dapperActual(dappername, url, callback, failure, retry)}, Math.random() * 100 * window.openCalls.value);
+}
+
+function dapperActual(dappername, url, callback, failure, retry) {
     retry = (typeof retry === "undefined") ? 0 : retry;
     var dapperurl = "http://open.dapper.net/transform.php?dappName=$dappername&applyToUrl=$url&transformer=JSON";
     dapperurl = dapperurl.replace(/\$dappername/, encodeURIComponent(dappername));
@@ -9,6 +14,7 @@ function dapper(dappername, url, callback, failure, retry) {
         jsonp: 'extraArg_callbackFunctionWrapper'
     })
         .done(function(json) {
+            window.openCalls.decrement();
             if (json.error && json.error === "The Dapp ran, but did not find any matching results in the given URL.") {
                 callback({
                     "dapper":{

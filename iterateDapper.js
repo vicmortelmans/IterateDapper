@@ -4,6 +4,8 @@ var parochieData;
 var misData;
 
 $(document).ready(function() {
+    
+    window.openCalls = new guiNumber('openCalls');
 
     $('#authorizeButton').on('click', function(){
         var authorizeConfig = {
@@ -77,7 +79,7 @@ $(document).ready(function() {
                         $.each(items, function(index, item) {
                             var url = item.href;
                             parochie.push(url);
-                            parochieCount2.increment();
+                            parochieCount.increment();
                         });
                     }
                 },
@@ -105,45 +107,50 @@ $(document).ready(function() {
             dapper('KerknetParochiesdata', url,
                 function(json) {
                     var data = [];
-                    var items = json.groups.item;
-                    if (items.length) {
-                        data.push(url);  // used as record ID
-                        var item = items[0];
-                        var columns = ["parochie", "adres1", "adres2", "telefoon"];
-                        for (var c = 0; c < columns.length; c++) {
-                            var label = columns[c];
-                            if (item.hasOwnProperty(label)) {
-                                var itemValues = item[label];
-                                var values = [];
+                    if (json.hasOwnProperty('groups')) {
+                        parochieOngoing.increment()
+                        var items = json.groups.item;
+                        if (items.length) {
+                            data.push(url);  // used as record ID
+                            var item = items[0];
+                            var columns = ["parochie", "adres1", "adres2", "telefoon"];
+                            for (var c = 0; c < columns.length; c++) {
+                                var label = columns[c];
+                                if (item.hasOwnProperty(label)) {
+                                    var itemValues = item[label];
+                                    var values = [];
+                                    for (var i = 0; i < itemValues.length; i++) {
+                                        values.push(itemValues[i].value);
+                                    }
+                                    data.push(values.join(", "));
+                                }
+                                else {
+                                    data.push("");
+                                }
+                            }
+                            if (item.hasOwnProperty("heiligemis")) {
+                                var itemValues = item["heiligemis"];
                                 for (var i = 0; i < itemValues.length; i++) {
-                                    values.push(itemValues[i].value);
-                                }
-                                data.push(values.join(", "));
-                            }
-                            else {
-                                data.push("");
-                            }
-                        }
-                        if (item.hasOwnProperty("heiligemis")) {
-                            var itemValues = item["heiligemis"];
-                            for (var i = 0; i < itemValues.length; i++) {
-                                var day = itemValues[i];
-                                var agenda = itemValues[++i];
-                                var time = agenda.match(/[0-9]{2}\.[0-9]{2}u/g);
-                                var activity = agenda.split(/\s?[0-9]{2}\.[0-9]{2}u\s?/g);
-                                activity.shift();
-                                for (var m = 0; m < time.length; m++) {
-                                    var mass = [];
-                                    mass.push(url);  // used as record ID
-                                    mass.push(day);
-                                    mass.push(time);
-                                    mass.push(activity);
-                                    misData.push(mass);
+                                    var day = itemValues[i].value;
+                                    var agenda = itemValues[++i].value;
+                                    var time = agenda.match(/[0-9]{2}\.[0-9]{2}u/g);
+                                    var activity = agenda.split(/\s?[0-9]{2}\.[0-9]{2}u\s?/g);
+                                    activity.shift();
+                                    for (var m = 0; m < time.length; m++) {
+                                        var mass = [];
+                                        mass.push(url);  // used as record ID
+                                        mass.push(day);
+                                        mass.push(time[m]);
+                                        mass.push(activity[m]);
+                                        misData.push(mass);
+                                        misCount.increment();
+                                    }
                                 }
                             }
                         }
+                        parochieData.push(data);
+                        dataCount.increment();
                     }
-                    parochieData.push(data);
                 },
                 function(url) {
                     dataError.append(url);
