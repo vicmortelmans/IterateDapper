@@ -1,11 +1,10 @@
-function import2(array) {
+function import2(id, array, console) {
     for (var i = 0; i < array.length; i++) {
         array[i] = array[i].join(';')
     }
     var csv = array.join('\r\n');
-    var tableId = '1ahxaJ35-UlI37Ye-haLFLolAhKeeI-Gs4PkpmfY';
     var request = gapi.client.request({
-       'path': '/upload/fusiontables/v1/tables/' + tableId + '/import',
+       'path': '/upload/fusiontables/v1/tables/' + id + '/import',
        'method': 'POST',
        'headers': {
            'Content-Type': 'application/octet-stream'
@@ -14,9 +13,8 @@ function import2(array) {
            'delimiter': ';'
        },
        'body': csv
-   });            
+    });            
     request.execute(function(resp) { 
-        console.log(resp); 
-        });
+        console.append(resp); 
+    });
 }
-
