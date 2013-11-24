@@ -27,15 +27,20 @@ function guiNumber(id) {
     };
 }
 
-function guiString(id) {
+function guiText(id) {
     this.dom = $('#' + id);
     this.set = function(string) {
-        this.dom.html('<div>' + string + '</div>');
+        this.dom.val(string);
         return;
     };
     this.append = function(string) {
-        this.dom.append('<div>' + string + '</div>');
+        this.dom.val(this.dom.val() + '\n' + string);
         return;
     };
+    this.prepend = function(string) {
+        this.dom.val(string + '\n' + this.dom.val());
+        return;
+    };
+    this.set('');
 }
 

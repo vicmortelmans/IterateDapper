@@ -1,8 +1,13 @@
 function import2(id, array, console) {
+    var csv = [];
     for (var i = 0; i < array.length; i++) {
-        array[i] = array[i].join(';')
+        var record = [];
+        for (var j = 0; j < array[i].length; j++) {
+            record[j] = '"' + array[i][j].replace('"','""') + '"';
+        }
+        csv[i] = record.join(';');
     }
-    var csv = array.join('\r\n');
+    csv = csv.join('\r\n');
     var request = gapi.client.request({
        'path': '/upload/fusiontables/v1/tables/' + id + '/import',
        'method': 'POST',

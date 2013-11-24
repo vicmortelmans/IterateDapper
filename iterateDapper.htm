@@ -16,29 +16,38 @@
             <div id="authorizeConsole"></div>
         </li>
         <li>
-            <button id="parochielijstButton">Verzamel voor elk bisdom alle opeenvolgende pagina's met lijsten van parochies</button>        
-            <div>Bisdommen: <span id="parochielijstBisdomOngoing"></span> van <span id="parochielijstBisdomCount"></span></div>
-            <div>Pagina's met parochielijsten: <span id="parochielijstCount"></span></div>
-            <div>Gefaalde pagina's: <div id="parochielijstError"></div></div>
+            <button id="parochieLijstButton">Verzamel voor elk bisdom alle opeenvolgende pagina's met lijsten van parochies</button>        
+            <div>Bisdommen: <span id="parochieLijstBisdomOngoing"></span> van <span id="parochieLijstBisdomCount"></span></div>
+            <div>Pagina's met parochielijsten: <span id="parochieLijstCount"></span></div>
+            <div>Opgehaalde pagina's: </div>
+            <textarea id="parochieLijst" rows="4" cols="120"></textarea>
+            <div>Gefaalde pagina's: </div>
+            <textarea id="parochieLijstError" rows="4" cols="120"></textarea>
         </li>
         <li>
             <button id="parochieButton">Verzamel de pagina's van de parochies</button>        
-            <div>Parochielijsten: <span id="parochielijstOngoing"></span> van <span id="parochielijstCount2"></span></div>
+            <div>parochielijsten: <span id="parochieLijstOngoing"></span> van <span id="parochieLijstCount2"></span></div>
             <div>Pagina's van parochies: <span id="parochieCount"></span></div>
-            <div>Gefaalde pagina's: <div id="parochieError"></div></div>
-        </li>
+            <div>Opgehaalde pagina's: </div>
+            <textarea id="parochie" rows="4" cols="120"></textarea>
+            <div>Gefaalde pagina's: </div>
+            <textarea id="parochieError" rows="4" cols="120"></textarea>
         <li>
             <button id="dataButton">Verzamel de parochiegegevens</button>        
             <div>Parochies: <span id="parochieOngoing"> van <span id="parochieCount2"></span></div>
             <div>Opgehaalde parochiedata: <span id="dataCount"></span></div>
             <div>Opgehaalde misuren: <span id="misCount"></span></div>
-            <div>Gefaalde pagina's: <div id="dataError"></div></div>
+            <div>Opgehaalde pagina's: </div>
+            <textarea id="data" rows="4" cols="120"></textarea>
+            <div>Gefaalde pagina's: </div>
+            <textarea id="dataError" rows="4" cols="120"></textarea>
         </li>
         <li>
             <button id="importButton">Upload to Fusion table</button>
-            <p id="importConsole"></p>
+            <textarea id="importError" rows="4" cols="120"></textarea>
         </li>
         <li>
+            <div>Scheduled calls: <span id="scheduledCalls"></span></div>
             <div>Open calls: <span id="openCalls"></span></div>
         </li>
     </ol>

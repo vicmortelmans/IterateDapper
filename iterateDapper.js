@@ -1,10 +1,11 @@
-var parochielijst;
+var parochieLijst;
 var parochie;
 var parochieData;
 var misData;
 
 $(document).ready(function() {
     
+    window.scheduledCalls = new guiNumber('scheduledCalls');
     window.openCalls = new guiNumber('openCalls');
 
     $('#authorizeButton').on('click', function(){
@@ -17,7 +18,7 @@ $(document).ready(function() {
         });
     });
 
-    $('#parochielijstButton').on('click', function() {
+    $('#parochieLijstButton').on('click', function() {
         var bisdom = [
             "http://kerknet.be/zoek_parochie.php?allbisdom=1",
             "http://kerknet.be/zoek_parochie.php?allbisdom=2",
@@ -29,13 +30,14 @@ $(document).ready(function() {
         
         // verzamel voor elk bisdom alle opeenvolgende pagina's met lijsten van parochies
         
-        parochielijst = [];
-        var parochielijstBisdomOngoing = new guiNumber('parochielijstBisdomOngoing');
-        var parochielijstBisdomCount = new guiNumber('parochielijstBisdomCount');
-        var parochielijstCount = new guiNumber('parochielijstCount');
-        var parochielijstError = new guiString('parochielijstError');
+        parochieLijst = [];
+        var parochieLijstBisdomOngoing = new guiNumber('parochieLijstBisdomOngoing');
+        var parochieLijstBisdomCount = new guiNumber('parochieLijstBisdomCount');
+        var parochieLijstCount = new guiNumber('parochieLijstCount');
+        var parochieLijstError = new guiText('parochieLijstError');
+        var parochieLijstLog = new guiText('parochieLijst');
         
-        var volgendeParochielijst = function(url) {
+        var volgendeparochieLijst = function(url) {
             dapper('KerknetParochiesdeephtmlnext', url, 
                 function(json) {
                     if (json.hasOwnProperty('fields')) {
@@ -43,24 +45,28 @@ $(document).ready(function() {
                         if (items.length) {
                             var item = items[0];
                             var url = item.href;
-                            window.parochielijst.push(url);
-                            parochielijstCount.increment();
-                            volgendeParochielijst(url);
+                            parochieLijst.push(url);
+                            parochieLijstCount.increment();
+                            parochieLijstLog.prepend(url);
+                            volgendeparochieLijst(url);
                         }
                         else {
-                            parochielijstBisdomOngoing.increment();
+                            parochieLijstBisdomOngoing.increment();
                         }
                     }
                 },
                 function(url) {
-                    parochielijstError.append(url);
+                    parochieLijstError.append(url);
                 }
             );
         };
         
-        parochielijstBisdomCount.set(bisdom.length);
+        parochieLijstBisdomCount.set(bisdom.length);
         $.each(bisdom, function(index,url) {
-            volgendeParochielijst(url);
+            parochieLijst.push(url);
+            parochieLijstCount.increment();
+            parochieLijstLog.prepend(url);
+            volgendeparochieLijst(url);
         });
     });
 
@@ -68,23 +74,28 @@ $(document).ready(function() {
         // verzamel de pagina's van de parochies
         
         parochie = [];
-        var parochielijstCount = new guiNumber('parochielijstCount2');
-        var parochielijstOngoing = new guiNumber('parochielijstOngoing');
+        var parochieLijstCount = new guiNumber('parochieLijstCount2');
+        var parochieLijstOngoing = new guiNumber('parochieLijstOngoing');
         var parochieCount = new guiNumber('parochieCount');
-        var parochieError = new guiString('parochieError');
+        var parochieError = new guiText('parochieError');
+        var parochieLog = new guiText('parochie');
         
-        parochielijstCount.set(parochielijst.length);
-        $.each(parochielijst, function(index, url) {
+        parochieLijstCount.set(parochieLijst.length);
+        $.each(parochieLijst, function(index, url) {
             dapper('kerknetparochieslist', url, 
                 function(json) {
-                    if (json.hasOwnProperty('fields')) {
-                        parochielijstOngoing.increment();
+                    if (json.hasOwnProperty('fields') && json.fields.item.length) {
+                        parochieLijstOngoing.increment();
                         var items = json.fields.item;
                         $.each(items, function(index, item) {
                             var url = item.href;
                             parochie.push(url);
                             parochieCount.increment();
+                            parochieLog.prepend(url);
                         });
+                    }
+                    else {
+                        parochieError.append("dapper empty : " + url);
                     }
                 },
                 function(url) {
@@ -104,19 +115,20 @@ $(document).ready(function() {
         var parochieOngoing = new guiNumber('parochieOngoing');
         var dataCount = new guiNumber('dataCount');
         var misCount = new guiNumber('misCount');
-        var dataError = new guiString('dataError');
+        var dataError = new guiText('dataError');
+        var dataLog = new guiText('data');
         
         parochieCount2.set(parochie.length);
         $.each(parochie, function(index, url) {
-            dapper('KerknetParochiesdataVersion2', url,
+            dapper('KerknetParochiesdataVersion3', url,
                 function(json) {
-                    if (json.hasOwnProperty('groups')) {
+                    if (json.hasOwnProperty('groups') && json.groups.item.length) {
                         parochieOngoing.increment()
                         var items = json.groups.item;
                         if (items.length) {
                             // data for table 'Kerken'
                             var item = items[0];
-                            var columns = ["bisdom", "parochie", "adres1", "adres2", "telefoon"];
+                            var columns = ["bisdom", "stad", "parochie", "adres1", "adres2", "telefoon"];
                             var data = [];
                             for (var c = 0; c < columns.length; c++) {
                                 var label = columns[c];
@@ -135,10 +147,10 @@ $(document).ready(function() {
                             // collect the data in an array following the right order of fields!
                             var fields = [];
                             fields.push(data.parochie.toProperCase()); // Name
-                            fields.push(data.bisdom); // Diocese Name
+                            fields.push(data.bisdom.replace(/Bisdom /,'').replace(/Vicariaat.*/,'Mechelen-Brussel')); // Diocese Name
                             fields.push(data.adres1); // Street Address
                             fields.push(data.adres2.split(' ')[0]); // Postal Code
-                            fields.push(data.adres2.replace(/^[0-9]+ /,'')); // City
+                            fields.push(data.stad.toProperCase()); // City
                             fields.push("Belgium"); // Country/Territory
                             fields.push(""); // Photo
                             fields.push(data.telefoon); // Phone Number
@@ -146,8 +158,10 @@ $(document).ready(function() {
                             fields.push(""); // Latitude
                             fields.push(""); // Longitude
                             fields.push(url);  // used as record ID
+                            fields.push([data.parochie.toProperCase(),data.stad.toProperCase()].join(', ')); // Name and City
                             parochieData.push(fields);
                             dataCount.increment();
+                            dataLog.prepend(url);
                             // data for table 'Missen'
                             if (item.hasOwnProperty("heiligemis")) {
                                 var itemValues = item["heiligemis"];
@@ -171,6 +185,9 @@ $(document).ready(function() {
                             }
                         }
                     }
+                    else {
+                        dataError.append("dapper returned empty : " + url);
+                    }
                 },
                 function(url) {
                     dataError.append(url);
@@ -182,7 +199,7 @@ $(document).ready(function() {
     $('#importButton').on('click', function() {
         // laad de gegevens op naar de Fusion tables
         
-        var importError = new guiString('importError');
+        var importError = new guiText('importError');
         var kerkenId = '1ahxaJ35-UlI37Ye-haLFLolAhKeeI-Gs4PkpmfY';
         var missenId = '1-fEwLICfAOxOVGHaXPCVRyF4ezf0IockWOwULwI';
         
