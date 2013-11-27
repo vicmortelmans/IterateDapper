@@ -1,4 +1,4 @@
-function import2(id, array, console) {
+function fusion(id, array, console) {
     var csv = [];
     for (var i = 0; i < array.length; i++) {
         var record = [];

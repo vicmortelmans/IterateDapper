@@ -6,6 +6,7 @@
     <script type="text/javascript" src="date.js"></script>    
     <script type="text/javascript" src="dapper.js"></script>
     <script type="text/javascript" src="fusion.js"></script>    
+    <script type="text/javascript" src="spreadsheets.js"></script>    
     <script type="text/javascript" src="gui.js"></script>    
     <script type="text/javascript" src="iterateDapper.js"></script>    
   </head>
@@ -36,14 +37,16 @@
             <button id="dataButton">Verzamel de parochiegegevens</button>        
             <div>Parochies: <span id="parochieOngoing"> van <span id="parochieCount2"></span></div>
             <div>Opgehaalde parochiedata: <span id="dataCount"></span></div>
+            <div>Succesvol opgeslagen parochiedata: <span id="kerkenImportCount"></span></div>
             <div>Opgehaalde misuren: <span id="misCount"></span></div>
+            <div>Succesvol opgeslagen misuren: <span id="misImportCount"></span></div>
             <div>Opgehaalde pagina's: </div>
             <textarea id="data" rows="4" cols="120"></textarea>
             <div>Gefaalde pagina's: </div>
             <textarea id="dataError" rows="4" cols="120"></textarea>
         </li>
         <li>
-            <button id="importButton">Upload to Fusion table</button>
+            <button id="importButton">Upload to Fusion table (spreadsheet upload is automatically!)</button>
             <textarea id="importError" rows="4" cols="120"></textarea>
         </li>
         <li>

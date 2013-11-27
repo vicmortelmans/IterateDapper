@@ -11,7 +11,7 @@ $(document).ready(function() {
     $('#authorizeButton').on('click', function(){
         var authorizeConfig = {
             'client_id': '115096030889.apps.googleusercontent.com',
-            'scope': 'https://www.googleapis.com/auth/fusiontables'
+            'scope': ['https://www.googleapis.com/auth/fusiontables','https://spreadsheets.google.com/feeds']
         };
         gapi.auth.authorize(authorizeConfig, function() {
             $('#authorizeConsole').html('login complete');
@@ -27,7 +27,9 @@ $(document).ready(function() {
             "http://kerknet.be/zoek_parochie.php?allbisdom=6",
             "http://kerknet.be/zoek_parochie.php?allbisdom=7"
         ];
-        
+
+/*        var bisdom = ["http://kerknet.be/zoek_parochie.php?allbisdom=1&zoekinbisdom=&term=&rowcounter=7&order=dekenaat&ordertype=ASC"];
+ */       
         // verzamel voor elk bisdom alle opeenvolgende pagina's met lijsten van parochies
         
         parochieLijst = [];
@@ -115,8 +117,12 @@ $(document).ready(function() {
         var parochieOngoing = new guiNumber('parochieOngoing');
         var dataCount = new guiNumber('dataCount');
         var misCount = new guiNumber('misCount');
+        var kerkenImportCount = new guiNumber('kerkenImportCount');
+        var misImportCount = new guiNumber('misImportCount');
         var dataError = new guiText('dataError');
         var dataLog = new guiText('data');
+        var importError = new guiText('importError');
+        var key = '0Au659FdpCliwdEJXZXJibi1JNERQcXZIMUVBZV9JSEE';
         
         parochieCount2.set(parochie.length);
         $.each(parochie, function(index, url) {
@@ -146,22 +152,30 @@ $(document).ready(function() {
                             }
                             // collect the data in an array following the right order of fields!
                             var fields = [];
+                            var diocese = data.bisdom.replace(/Bisdom /,'').replace(/Vicariaat.*/,'Mechelen-Brussel');
+                            var nameAndCity = [data.parochie.toProperCase(),data.stad.toProperCase()].join(', ');
                             fields.push(data.parochie.toProperCase()); // Name
-                            fields.push(data.bisdom.replace(/Bisdom /,'').replace(/Vicariaat.*/,'Mechelen-Brussel')); // Diocese Name
-                            fields.push(data.adres1); // Street Address
-                            fields.push(data.adres2.split(' ')[0]); // Postal Code
-                            fields.push(data.stad.toProperCase()); // City
-                            fields.push("Belgium"); // Country/Territory
-                            fields.push(""); // Photo
+                            fields.push(diocese); // Diocese Name
+                            fields.push(data.adres1); // Mailing Street Address
+                            fields.push(data.stad.toProperCase()); // Mailing City
+                            fields.push(data.adres2.split(' ')[0]); // Mailing Postal Code
+                            fields.push("Belgium"); // Mailing Country/Territory
                             fields.push(data.telefoon); // Phone Number
                             fields.push([data.adres1, data.adres2].join(' ')); // Compiled Address
                             fields.push(""); // Latitude
                             fields.push(""); // Longitude
                             fields.push(url);  // used as record ID
-                            fields.push([data.parochie.toProperCase(),data.stad.toProperCase()].join(', ')); // Name and City
+                            fields.push(nameAndCity); // Name and City
                             parochieData.push(fields);
                             dataCount.increment();
                             dataLog.prepend(url);
+                            spreadsheets(key, 'kerken', fields)
+                                .done(function(){
+                                    kerkenImportCount.increment();
+                                })
+                                .fail(function(){
+                                    importError.prepend('kerken: ' + url);
+                                });
                             // data for table 'Missen'
                             if (item.hasOwnProperty("heiligemis")) {
                                 var itemValues = item["heiligemis"];
@@ -177,9 +191,18 @@ $(document).ready(function() {
                                         mass.push(time[m]); // Time Start
                                         mass.push("Dutch"); // Language
                                         mass.push(activity[m]); // Service Type
+                                        mass.push(diocese); // Diocese Name
                                         mass.push(url);  // used as record ID
+                                        mass.push(nameAndCity);  // Name and City
                                         misData.push(mass);
                                         misCount.increment();
+                                        spreadsheets(key, 'missen', mass)
+                                            .done(function(){
+                                                misImportCount.increment();
+                                            })
+                                            .fail(function(){
+                                                importError.prepend('missen: ' + url);
+                                            });
                                     }
                                 }
                             }
@@ -203,8 +226,8 @@ $(document).ready(function() {
         var kerkenId = '1ahxaJ35-UlI37Ye-haLFLolAhKeeI-Gs4PkpmfY';
         var missenId = '1-fEwLICfAOxOVGHaXPCVRyF4ezf0IockWOwULwI';
         
-        import2(kerkenId, parochieData, importError);
-        import2(missenId, misData, importError);
+        fusion(kerkenId, parochieData, importError);
+        fusion(missenId, misData, importError);
         
     });
 
