@@ -1,22 +1,23 @@
+// where it says 'dapper', please read 'yql', I'm to lazy to search and replace
 // first calls go here:
-function dapper(dappername, url, callback, failure, retry) {
+function dapper(xpath, url, callback, failure, retry) {
     window.scheduledCalls.increment();
-    dapperActual(dappername, url, callback, failure, retry);
+    dapperActual(xpath, url, callback, failure, retry);
 }
 
 // retry calls because server busy or returning error go here:
-function dapperActual(dappername, url, callback, failure, retry) {
+function dapperActual(xpath, url, callback, failure, retry) {
     retry = (typeof retry === "undefined") ? 0 : retry;
     // better wait a minute
     if (retry || window.openCalls.value > 10) {
-        setTimeout(function() {dapperActual(dappername, url, callback, failure, retry)}, Math.random() * 1000 * window.openCalls.value);
+        setTimeout(function() {dapperActual(xpath, url, callback, failure, retry)}, Math.random() * 1000 * window.openCalls.value);
     }
     // all clear, go ahead!
     else {
         window.scheduledCalls.decrement();
         window.openCalls.increment();
-        var dapperurl = "http://open.dapper.net/transform.php?dappName=$dappername&applyToUrl=$url&transformer=JSON";
-        dapperurl = dapperurl.replace(/\$dappername/, encodeURIComponent(dappername));
+        var dapperurl = "https://query.yahooapis.com/v1/yql?q=select%20*%20from%20html%20where%20url%3D%22$url%22%20and%20xpath%3D%22$xpath%22&format=json&callback=";
+        dapperurl = dapperurl.replace(/\$xpath/, encodeURIComponent(xpath));
         dapperurl = dapperurl.replace(/\$url/, encodeURIComponent(url));
         $.ajax({
             url: dapperurl,
@@ -25,24 +26,15 @@ function dapperActual(dappername, url, callback, failure, retry) {
         })
             .done(function(json) {
                 window.openCalls.decrement();
-                if (json.error && json.error === "The Dapp ran, but did not find any matching results in the given URL.") {
-                    callback({
-                        "dapper":{
-                            "status":"OK"
-                        },
-                        "fields":{
-                            "item":[]
-                        }
-                    });
-                }
-                else if (json.dapper && json.dapper.status === "OK") {
+                if (json.query && json.query.count) {
+                    if (json.query.count == 0) failure("no data found on" + url);
                     callback(json);
                 }
                 else if (retry <= 3) {
-                    setTimeout(function() {dapperActual(dappername, url, callback, retry + 1);}, 2000);
+                    setTimeout(function() {dapperActual(xpath, url, callback, retry + 1);}, 2000);
                 }
                 else {
-                    failure("dapper failed on" + url);
+                    failure("YQL failed on" + url);
                 }
             })
             .fail(function() {

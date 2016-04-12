@@ -20,12 +20,12 @@ $(document).ready(function() {
 
     $('#parochieLijstButton').on('click', function() {
         var bisdom = [
-            "http://kerknet.be/zoek_parochie.php?allbisdom=1",
-            "http://kerknet.be/zoek_parochie.php?allbisdom=2",
-            "http://kerknet.be/zoek_parochie.php?allbisdom=3",
-            "http://kerknet.be/zoek_parochie.php?allbisdom=4",
-            "http://kerknet.be/zoek_parochie.php?allbisdom=6",
-            "http://kerknet.be/zoek_parochie.php?allbisdom=7"
+            "http://archief.kerknet.be/zoek_parochie.php?allbisdom=1",
+            "http://archief.kerknet.be/zoek_parochie.php?allbisdom=2",
+            "http://archief.kerknet.be/zoek_parochie.php?allbisdom=3",
+            "http://archief.kerknet.be/zoek_parochie.php?allbisdom=4",
+            "http://archief.kerknet.be/zoek_parochie.php?allbisdom=6",
+            "http://archief.kerknet.be/zoek_parochie.php?allbisdom=7"
         ];
 
 /*        var bisdom = ["http://kerknet.be/zoek_parochie.php?allbisdom=1&zoekinbisdom=&term=&rowcounter=7&order=dekenaat&ordertype=ASC"];
@@ -40,7 +40,7 @@ $(document).ready(function() {
         var parochieLijstLog = new guiText('parochieLijst');
         
         var volgendeparochieLijst = function(url) {
-            dapper('KerknetParochiesdeephtmlnext', url, 
+            dapper("(//a[.='Volgende'])[1]", url, 
                 function(json) {
                     if (json.hasOwnProperty('fields')) {
                         var items = json.fields.item;
