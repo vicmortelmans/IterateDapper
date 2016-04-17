@@ -42,11 +42,9 @@ $(document).ready(function() {
         var volgendeparochieLijst = function(url) {
             dapper("(//a[.='Volgende'])[1]", url, 
                 function(json) {
-                    if (json.hasOwnProperty('fields')) {
-                        var items = json.fields.item;
-                        if (items.length) {
-                            var item = items[0];
-                            var url = item.href;
+                    if (json.query && json.query.count) {
+                        if (json.query.count > 0) {
+                            var url = "http://archief.kerknet.be/" + json.query.results.a.href;
                             parochieLijst.push(url);
                             parochieLijstCount.increment();
                             parochieLijstLog.prepend(url);
@@ -72,6 +70,14 @@ $(document).ready(function() {
         });
     });
 
+    $('#readParochieLijstButton').on('click',function() {
+      parochieLijst = [];
+      var text = $('#parochieLijst').val();
+      $.each(text.split('\n'), function(index, line) {
+        parochieLijst.push(line);
+      });
+    });
+
     $('#parochieButton').on('click', function() {
         // verzamel de pagina's van de parochies
         
@@ -84,13 +90,13 @@ $(document).ready(function() {
         
         parochieLijstCount.set(parochieLijst.length);
         $.each(parochieLijst, function(index, url) {
-            dapper('kerknetparochieslist', url, 
+            dapper("(//a[contains(@href,'parochie_fiche')])", url, 
                 function(json) {
-                    if (json.hasOwnProperty('fields') && json.fields.item.length) {
+                    if (json.query && json.query.count && json.query.count > 0) {
                         parochieLijstOngoing.increment();
-                        var items = json.fields.item;
+                        var items = json.query.results.a;
                         $.each(items, function(index, item) {
-                            var url = item.href;
+                            var url = "http://archief.kerknet.be/" + item.href;
                             parochie.push(url);
                             parochieCount.increment();
                             parochieLog.prepend(url);
@@ -107,9 +113,17 @@ $(document).ready(function() {
         });
     });
     
+    $('#readParochieButton').on('click',function() {
+      parochie = [];
+      var text = $('#parochie').val();
+      $.each(text.split('\n'), function(index, line) {
+        parochie.push(line);
+      });
+    });
+
     
     $('#dataButton').on('click', function() {
-        // verzamel de data van elke parochie
+        // verzamel de parochiegegevens
         
         parochieData = [];
         misData = [];
@@ -122,48 +136,28 @@ $(document).ready(function() {
         var dataError = new guiText('dataError');
         var dataLog = new guiText('data');
         var importError = new guiText('importError');
-        var key = '0Au659FdpCliwdEJXZXJibi1JNERQcXZIMUVBZV9JSEE';
+        var key = '1J_evudlmZ2bDKkaguYzK7o_4cHlSkaUq586T8hYYjis'; // the macro in this spreadsheet is referred to in spreadsheet.js
         
         parochieCount2.set(parochie.length);
         $.each(parochie, function(index, url) {
-            dapper('KerknetParochiesdataVersion3', url,
-                function(json) {
-                    if (json.hasOwnProperty('groups') && json.groups.item.length) {
-                        parochieOngoing.increment()
-                        var items = json.groups.item;
-                        if (items.length) {
+            if (url) {
+                dapper("//div[@id='middle']", url,
+                    function(json) {
+                        if (json.query && json.query.count && json.query.count > 0) {
+                            parochieOngoing.increment()
+                            var middle = json.query.results.div;
+                            var nameAndCity = middle.div.table[0].thead.tr[0].th.content.toProperCase();
                             // data for table 'Kerken'
-                            var item = items[0];
-                            var columns = ["bisdom", "stad", "parochie", "adres1", "adres2", "telefoon"];
-                            var data = [];
-                            for (var c = 0; c < columns.length; c++) {
-                                var label = columns[c];
-                                if (item.hasOwnProperty(label)) {
-                                    var itemValues = item[label];
-                                    var values = [];
-                                    for (var i = 0; i < itemValues.length; i++) {
-                                        values.push(itemValues[i].value);
-                                    }
-                                    data[label] = values.join(", ");
-                                }
-                                else {
-                                    data[label] = "";
-                                }
-                            }
                             // collect the data in an array following the right order of fields!
                             var fields = [];
-                            var diocese = data.bisdom.replace(/Bisdom /,'').replace(/Vicariaat.*/,'Mechelen-Brussel');
-                            var nameAndCity = [data.parochie.toProperCase(),data.stad.toProperCase()].join(', ');
-                            fields.push(data.parochie.toProperCase()); // Name
-                            fields.push(diocese); // Diocese Name
-                            fields.push(data.adres1); // Mailing Street Address
-                            fields.push(data.stad.toProperCase()); // Mailing City
-                            fields.push(data.adres2.split(' ')[0]); // Mailing Postal Code
-                            fields.push("Belgium"); // Mailing Country/Territory
-                            fields.push(data.telefoon); // Phone Number
-                            fields.push([data.adres1, data.adres2].join(' ')); // Compiled Address
-                            fields.push(""); // Latitude
-                            fields.push(""); // Longitude
+                            fields.push(''); // Name
+                            fields.push(''); // Diocese Name
+                            fields.push(''); // Mailing Street Address
+                            fields.push(''); // Mailing City
+                            fields.push(''); // Mailing Postal Code
+                            fields.push(''); // Mailing Country/Territory
+                            fields.push(''); // Phone Number
+                            fields.push(''); // Compiled Address
                             fields.push(url);  // used as record ID
                             fields.push(nameAndCity); // Name and City
                             parochieData.push(fields);
@@ -177,11 +171,12 @@ $(document).ready(function() {
                                     importError.prepend('kerken: ' + url);
                                 });
                             // data for table 'Missen'
-                            if (item.hasOwnProperty("heiligemis")) {
-                                var itemValues = item["heiligemis"];
+                            if (middle.div.table[0].tbody.tr) {
+                                var itemValues = middle.div.table[0].tbody.tr;
+                                itemValues = (typeof itemValues != 'undefined' && itemValues instanceof Array) ? itemValues : [itemValues];
                                 for (var i = 0; i < itemValues.length; i++) {
-                                    var day = itemValues[i].value;
-                                    var agenda = itemValues[++i].value;
+                                    var day = itemValues[i].th.content;
+                                    var agenda = itemValues[i].td.content;
                                     var time = agenda.match(/[0-9]{2}\.[0-9]{2}u/g);
                                     var activity = agenda.split(/\s?[0-9]{2}\.[0-9]{2}u\s?/g);
                                     activity.shift();
@@ -191,7 +186,7 @@ $(document).ready(function() {
                                         mass.push(time[m]); // Time Start
                                         mass.push("Dutch"); // Language
                                         mass.push(activity[m]); // Service Type
-                                        mass.push(diocese); // Diocese Name
+                                        mass.push(''); // Diocese Name
                                         mass.push(url);  // used as record ID
                                         mass.push(nameAndCity);  // Name and City
                                         misData.push(mass);
@@ -207,15 +202,15 @@ $(document).ready(function() {
                                 }
                             }
                         }
+                        else {
+                            dataError.append("dapper returned empty : " + url);
+                        }
+                    },
+                    function(url) {
+                        dataError.append(url);
                     }
-                    else {
-                        dataError.append("dapper returned empty : " + url);
-                    }
-                },
-                function(url) {
-                    dataError.append(url);
-                }
-            );
+                );
+            } // if (url)
         });
     });
 

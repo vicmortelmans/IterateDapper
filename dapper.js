@@ -16,13 +16,18 @@ function dapperActual(xpath, url, callback, failure, retry) {
     else {
         window.scheduledCalls.decrement();
         window.openCalls.increment();
-        var dapperurl = "https://query.yahooapis.com/v1/yql?q=select%20*%20from%20html%20where%20url%3D%22$url%22%20and%20xpath%3D%22$xpath%22&format=json&callback=";
-        dapperurl = dapperurl.replace(/\$xpath/, encodeURIComponent(xpath));
-        dapperurl = dapperurl.replace(/\$url/, encodeURIComponent(url));
+        var dapperurl = "https://query.yahooapis.com/v1/public/yql";
+        var query = 'select * from html where url="$url" and xpath="$xpath"';
+        query = query.replace(/\$xpath/, xpath);
+        query = query.replace(/\$url/, url);
         $.ajax({
             url: dapperurl,
             dataType: 'jsonp',
-            jsonp: 'extraArg_callbackFunctionWrapper'
+            jsonp: 'callback',
+            data: {
+              q: query,
+              format: "json"
+            }
         })
             .done(function(json) {
                 window.openCalls.decrement();
