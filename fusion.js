@@ -6,7 +6,7 @@ function fusion(id, array, console) {
             if (array[i][j]) {
               record[j] = '"' + array[i][j].replace('"','""') + '"';
             } else {
-              record[j] = '""';
+              record[j] = '';
             }
         }
         csv[i] = record.join(';');
