@@ -10,7 +10,7 @@ $(document).ready(function() {
 
     $('#authorizeButton').on('click', function(){
         var authorizeConfig = {
-            'client_id': '115096030889.apps.googleusercontent.com',
+            'client_id': '222690187047-oqno38strfmakqt4rgbv04tid9db81q5.apps.googleusercontent.com',
             'scope': ['https://www.googleapis.com/auth/fusiontables','https://spreadsheets.google.com/feeds']
         };
         gapi.auth.authorize(authorizeConfig, function() {
@@ -225,6 +225,11 @@ $(document).ready(function() {
         fusion(missenId, misData, importError);
         
     });
+
+    $('#toCSVButton').on('click', function() {
+        // genereer CSV om manueel te kopieren
+
+    });        
 
 });
 
