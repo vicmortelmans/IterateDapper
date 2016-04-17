@@ -3,7 +3,11 @@ function fusion(id, array, console) {
     for (var i = 0; i < array.length; i++) {
         var record = [];
         for (var j = 0; j < array[i].length; j++) {
-            record[j] = '"' + array[i][j].replace('"','""') + '"';
+            if (array[i][j]) {
+              record[j] = '"' + array[i][j].replace('"','""') + '"';
+            } else {
+              record[j] = '""';
+            }
         }
         csv[i] = record.join(';');
     }

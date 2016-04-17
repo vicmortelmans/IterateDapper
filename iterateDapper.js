@@ -136,7 +136,7 @@ $(document).ready(function() {
         var dataError = new guiText('dataError');
         var dataLog = new guiText('data');
         var importError = new guiText('importError');
-        var key = '1J_evudlmZ2bDKkaguYzK7o_4cHlSkaUq586T8hYYjis'; // the macro in this spreadsheet is referred to in spreadsheet.js
+        //var key = '1J_evudlmZ2bDKkaguYzK7o_4cHlSkaUq586T8hYYjis'; // the macro in this spreadsheet is referred to in spreadsheet.js
         
         parochieCount2.set(parochie.length);
         $.each(parochie, function(index, url) {
@@ -163,6 +163,7 @@ $(document).ready(function() {
                             parochieData.push(fields);
                             dataCount.increment();
                             dataLog.prepend(url);
+                            /*
                             spreadsheets(key, 'kerken', fields)
                                 .done(function(){
                                     kerkenImportCount.increment();
@@ -170,6 +171,7 @@ $(document).ready(function() {
                                 .fail(function(){
                                     importError.prepend('kerken: ' + url);
                                 });
+                            */
                             // data for table 'Missen'
                             if (middle.div.table[0].tbody.tr) {
                                 var itemValues = middle.div.table[0].tbody.tr;
@@ -191,6 +193,7 @@ $(document).ready(function() {
                                         mass.push(nameAndCity);  // Name and City
                                         misData.push(mass);
                                         misCount.increment();
+                                        /*
                                         spreadsheets(key, 'missen', mass)
                                             .done(function(){
                                                 misImportCount.increment();
@@ -198,6 +201,7 @@ $(document).ready(function() {
                                             .fail(function(){
                                                 importError.prepend('missen: ' + url);
                                             });
+                                        */
                                     }
                                 }
                             }
