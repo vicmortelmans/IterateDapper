@@ -4,7 +4,7 @@ function fusion(id, array, console) {
         var record = [];
         for (var j = 0; j < array[i].length; j++) {
             if (array[i][j]) {
-              record[j] = '"' + array[i][j].replace('"','') + '"';
+              record[j] = '"' + array[i][j].replace(new RegExp('"','g'),'""') + '"';
             } else {
               record[j] = '';
             }
